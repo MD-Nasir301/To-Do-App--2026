@@ -1,0 +1,83 @@
+/* ========== CSS VARIABLES ========== */
+:root {
+  --theme-text-primary: #8fb808;
+  --theme-text-secondary: #ff5c1c;
+  --text-gray: rgb(170, 170, 170);
+  --text-black: #221a15;
+  --text-white: #ffffff;
+  --theme-bg-primary: #ffff009f;
+  --theme-bg-secondary: #febe10;
+  --list-text-color: rgb(62, 37, 37);
+  --bg-white: #ffffff;
+  /* Spacing & Layout */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --space-xl: 64px;
+  /* Borders & Shadows */
+  --border-radius: 6px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== RESET & BASE ========== */
+/* Reset default browser styles and set base font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  overflow-x: hidden;
+  line-height: 1.6;
+  background: var(--bg-white);
+  color: var(--theme-text-primary);
+}
+
+/* App Costom CSS  ---------------------------- */
+.app-wraper {
+  max-width: 600px;
+  margin: 0px auto;
+  min-height: 100vh;
+  background: var(--bg-white);
+  padding: 5px 10px;
+}
+
+span {
+  color: var(--theme-text-secondary);
+}
+button.btn {
+  background: var(--theme-bg-secondary);
+  font-weight: bold;
+  margin: 4px 0 4px 5px;
+  padding: 5px;
+}
+
+.task-text-area {
+  background: var(--theme-bg-primary);
+  padding: 10px 6px;
+  color: var(--list-text-color);
+}
+.task-text-area {
+  position: relative;
+}
+.task-text-area::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: black;
+  top: 50%;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(-50%, -50%);
+  display: none;
+  opacity: 0.6;
+}
+.task-text-area.task-completed::after {
+  display: block;
+}
