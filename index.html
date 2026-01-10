@@ -42,14 +42,14 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body>
+  <body class="dark-mod" >
     <!-- Accessibility: Skip to main content -->
     <a href="#main-content" class="visually-hidden-focusable">
       Skip to main content
     </a>
-    <div class="app-wraper">
+    <div class="app-wraper dark-mode">
       <!-- Header Start  ============= -->
-      <header class="py-3 bg-body-secondary">
+      <header class="py-3">
         <div class="container">
           <div class="row">
             <div class="col"></div>
@@ -78,15 +78,15 @@
       <!-- Header End  =============== -->
 
       <!-- Main Start  =============== -->
-      <main id="main-content" class="pt-3">
+      <main id="main-content dark-mode" class="pt-3">
         <div class="container">
           <!-- Date & Time Area Start -->
           <div
-            class="date-time-area d-flex px-3 mb-3 tx-primary justify-content-between"
+            class="date-time-area d-flex px-1 mb-3 tx-primary justify-content-between"
           >
-            <div><span>Time:</span> <time class="time-text">10:05</time></div>
+            <div><span>Time:</span> <time id="time-value" class="time-text"></time></div>
             <div>
-              <span>Date:</span> <time class="date-text">2026-01-20</time>
+              <span>Date:</span> <time id="date-value" class="date-text"></time>
             </div>
           </div>
           <!-- Date & Time Area End -->
@@ -110,7 +110,7 @@
           <!-- User Input Area End -->
 
           <!-- Task Display Area Start -->
-          <div class="task-display-area">
+          <div class="task-display-area ">
             <!-- Task Group area Start -->
             <ul
               id="task-list-group"
@@ -124,10 +124,10 @@
                   <div class="row">
                     <div class="col-9 col-sm-10 p-0">
                       <div
-                        class="task-text-area task-completed d-flex justify-content-between"
+                        class="task-text-area d-flex justify-content-between"
                       >
                         <span class="task-text">Home Work </span>
-                        <span class="task-time">10:00</span>
+                        <span class="task-time">00:00</span>
                       </div>
                     </div>
                     <div
