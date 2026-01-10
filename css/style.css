@@ -7,7 +7,7 @@
   --text-white: #ffffff;
   --theme-bg-primary: #ffff009f;
   --theme-bg-secondary: #febe10;
-  --header-bg: rgb(228, 210, 210); 
+  --header-bg: rgb(228, 210, 210);
   --bg-white: #ffffff;
   /* Spacing & Layout */
   --space-xs: 4px;
@@ -36,7 +36,6 @@ body {
   background: rgb(182, 180, 180);
   color: var(--theme-text-primary);
 }
-
 
 /* App Costom CSS  ---------------------------- */
 body.dark-mode {
@@ -93,9 +92,8 @@ button.btn {
 .task-text-area.task-completed::after {
   display: block;
 }
-#time-value,#date-value {
+#time-value,
+#date-value {
   font-size: 16px;
   letter-spacing: 1px;
 }
-
-
