@@ -3,9 +3,19 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const timeEl = getDomByID("time-value");
   const dateEl = getDomByID("date-value");
+  const darkBtn = getDomByID("flexSwitchCheckChecked");
 
-  // Set Date
 
+
+
+
+
+  // Dark Mode Toggle
+  darkBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+
+  // Set Date & Time
   setInterval(() => {
     timeEl.textContent = new Date().toLocaleTimeString([], {
       hour: "2-digit",
@@ -25,5 +35,6 @@ window.addEventListener("DOMContentLoaded", () => {
   function getDomByID(id) {
     return document.getElementById(id);
   }
+
   //********* */
 });

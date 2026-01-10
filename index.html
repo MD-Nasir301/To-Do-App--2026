@@ -42,20 +42,22 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body class="dark-mod">
+  <body>
     <!-- Accessibility: Skip to main content -->
     <a href="#main-content" class="visually-hidden-focusable">
       Skip to main content
     </a>
-    <div class="app-wraper dark-mode">
+    <div class="app-wraper">
       <!-- Header Start  ============= -->
       <header class="py-3">
         <div class="container">
           <div class="row">
-            <div class="col"></div>
             <div class="col">
-              <span class="fw-bold fs-4">To</span>
-              <span class="fw-bold fs-4">Do</span>
+              <img class="logo" src="img/logo2.png" alt="" />
+            </div>
+            <div class="col">
+              <span class="to fw-bold">To</span>
+              <span class="do fw-bold">Do</span>
             </div>
             <div class="col col-md-2 mt-1 d-none text-end d-sm-block">
               <span>Theme:</span>
@@ -100,8 +102,9 @@
                 <input
                   type="text"
                   name="text-input"
-                  class="px-2 w-100 h-100"
-                  id="input-user-task"
+                  class="todo-task-input px-2 w-100 h-100"
+                  id="todo-task-input"
+                  placeholder="Add your new task..."
                 />
               </div>
               <div class="col-2 d-flex justify-content-center p-0">

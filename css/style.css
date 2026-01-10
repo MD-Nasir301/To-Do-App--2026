@@ -9,6 +9,7 @@
   --theme-bg-secondary: #febe10;
   --header-bg: rgb(228, 210, 210);
   --bg-white: #ffffff;
+  --input-bg: #fcebeb;
   /* Spacing & Layout */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -44,7 +45,7 @@ body.dark-mode {
   --theme-text-secondary: #070314;
   --theme-bg-primary: #40b0139f;
   --theme-bg-secondary: #c1c1b3;
-  --herder-bg: balck;
+  --header-bg: rgb(94, 84, 84);
 }
 .app-wraper {
   max-width: 600px;
@@ -55,6 +56,20 @@ body.dark-mode {
 }
 header {
   background: var(--header-bg);
+}
+.logo {
+  height: 40px;
+  width: auto;
+  margin-left: 10px;
+}
+.to {
+  font-size: 25px;
+  display: inline-block;
+  transform: rotate(-10deg);
+  color: orange
+}
+.do {
+  font-size: 25px;
 }
 
 span {
@@ -96,4 +111,17 @@ button.btn {
 #date-value {
   font-size: 16px;
   letter-spacing: 1px;
+}
+input.todo-task-input {
+    border: 0px solid gray;
+    background: var(--input-bg);
+    font-size: 1.1rem;
+    letter-spacing: 0px;
+    font-weight: 400;
+    color: #5f5b5b;
+
+}
+input.todo-task-input:focus {
+  outline: none;
+  background: #e9e3e3;
 }
