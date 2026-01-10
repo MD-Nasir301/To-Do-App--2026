@@ -10,6 +10,7 @@
   --header-bg: rgb(228, 210, 210);
   --bg-white: #ffffff;
   --input-bg: #fcebeb;
+  --space-md: 16px
   /* Spacing & Layout */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -36,6 +37,9 @@ body {
   line-height: 1.6;
   background: rgb(182, 180, 180);
   color: var(--theme-text-primary);
+}
+.mb {
+  margin-bottom: var(--space-md)
 }
 
 /* App Costom CSS  ---------------------------- */
