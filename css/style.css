@@ -1,13 +1,13 @@
 /* ========== CSS VARIABLES ========== */
 :root {
-  --theme-text-primary: #8fb808;
+  --theme-text-primary: #4d5b1d;
   --theme-text-secondary: #ff5c1c;
   --text-gray: rgb(170, 170, 170);
   --text-black: #221a15;
   --text-white: #ffffff;
   --theme-bg-primary: #ffff009f;
   --theme-bg-secondary: #febe10;
-  --list-text-color: rgb(62, 37, 37);
+  --header-bg: rgb(228, 210, 210); 
   --bg-white: #ffffff;
   /* Spacing & Layout */
   --space-xs: 4px;
@@ -33,17 +33,29 @@ body {
   font-weight: 600;
   overflow-x: hidden;
   line-height: 1.6;
-  background: var(--bg-white);
+  background: rgb(182, 180, 180);
   color: var(--theme-text-primary);
 }
 
+
 /* App Costom CSS  ---------------------------- */
+body.dark-mode {
+  --bg-white: rgb(118, 106, 106);
+  --theme-text-primary: #f3f4ef;
+  --theme-text-secondary: #070314;
+  --theme-bg-primary: #40b0139f;
+  --theme-bg-secondary: #c1c1b3;
+  --herder-bg: balck;
+}
 .app-wraper {
   max-width: 600px;
   margin: 0px auto;
   min-height: 100vh;
   background: var(--bg-white);
   padding: 5px 10px;
+}
+header {
+  background: var(--header-bg);
 }
 
 span {
@@ -80,4 +92,8 @@ button.btn {
 }
 .task-text-area.task-completed::after {
   display: block;
+}
+#time-value,#date-value {
+  font-size: 16px;
+  letter-spacing: 1px;
 }
