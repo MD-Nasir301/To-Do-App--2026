@@ -11,6 +11,7 @@ window.addEventListener("DOMContentLoaded", () => {
       hour: "2-digit",
       minute: "2-digit",
       //second: "2-digit",
+      hour12: true,
     });
 
     dateEl.textContent = new Date().toLocaleDateString("en-UK", {
