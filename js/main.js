@@ -5,11 +5,6 @@ window.addEventListener("DOMContentLoaded", () => {
   const dateEl = getDomByID("date-value");
   const darkBtn = getDomByID("flexSwitchCheckChecked");
 
-
-
-
-
-
   // Dark Mode Toggle
   darkBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");

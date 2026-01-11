@@ -10,7 +10,8 @@
   --header-bg: rgb(228, 210, 210);
   --bg-white: #ffffff;
   --input-bg: #fcebeb;
-  --space-md: 16px
+  --list-text-color: rgb(111, 63, 63);
+  --space-md: 16px;
   /* Spacing & Layout */
   --space-xs: 4px;
   --space-sm: 8px;
@@ -22,8 +23,7 @@
   --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* ========== RESET & BASE ========== */
-/* Reset default browser styles and set base font */
+/* Reset default browser styles, set base font and them base Element styles ------------------------------- */
 * {
   margin: 0;
   padding: 0;
@@ -39,18 +39,30 @@ body {
   color: var(--theme-text-primary);
 }
 .mb {
-  margin-bottom: var(--space-md)
+  margin-bottom: var(--space-md);
+}
+span {
+  color: var(--theme-text-secondary);
+}
+button.btn {
+  background: var(--theme-bg-secondary);
+  font-weight: bold;
+  margin: 4px 0 4px 5px;
+  padding: 5px;
 }
 
-/* App Costom CSS  ---------------------------- */
+/* Dark Mode Styles ------------------------------*/
 body.dark-mode {
   --bg-white: rgb(118, 106, 106);
   --theme-text-primary: #f3f4ef;
   --theme-text-secondary: #070314;
   --theme-bg-primary: #40b0139f;
   --theme-bg-secondary: #c1c1b3;
-  --header-bg: rgb(94, 84, 84);
+  --header-bg: rgb(87, 78, 78);
+  --list-text-color: rgb(34, 83, 22);
+  --input-bg: #b0b2b0;
 }
+/* App Wrapper Style------------------------------ */
 .app-wraper {
   max-width: 600px;
   margin: 0px auto;
@@ -58,6 +70,7 @@ body.dark-mode {
   background: var(--bg-white);
   padding: 5px 10px;
 }
+/* Header Style ------------------------------ */
 header {
   background: var(--header-bg);
 }
@@ -70,62 +83,51 @@ header {
   font-size: 25px;
   display: inline-block;
   transform: rotate(-10deg);
-  color: orange
+  color: orange;
 }
 .do {
   font-size: 25px;
 }
-
-span {
-  color: var(--theme-text-secondary);
-}
-button.btn {
-  background: var(--theme-bg-secondary);
-  font-weight: bold;
-  margin: 4px 0 4px 5px;
-  padding: 5px;
-}
-
-.task-text-area {
-  background: var(--theme-bg-primary);
-  padding: 10px 6px;
-  color: var(--list-text-color);
-}
-.task-text-area {
-  position: relative;
-}
-.task-text-area::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  background: black;
-  top: 50%;
-  left: 0;
-  right: 0;
-  bottom: 50%;
-  transform: translateY(-50%, -50%);
-  display: none;
-  opacity: 0.6;
-}
-.task-text-area.task-completed::after {
-  display: block;
-}
+/* Date & Time Area Style ------------------------------*/
 #time-value,
 #date-value {
   font-size: 16px;
   letter-spacing: 1px;
 }
+/* User Input Area Style ------------------------------*/
 input.todo-task-input {
-    border: 0px solid gray;
-    background: var(--input-bg);
-    font-size: 1.1rem;
-    letter-spacing: 0px;
-    font-weight: 400;
-    color: #5f5b5b;
-
+  border: 0px solid gray;
+  background: var(--input-bg);
+  font-size: 1.1rem;
+  letter-spacing: 0px;
+  font-weight: 400;
+  color: #5f5b5b;
 }
 input.todo-task-input:focus {
   outline: none;
   background: #e9e3e3;
+}
+
+/* Task Display Area  Style ------------------------------ */
+.task-text-area {
+  background: var(--theme-bg-primary);
+  padding: 10px 6px;
+  position: relative;
+  text-wrap: wrap;
+  overflow-y: hidden;
+}
+.task-text-area::after {
+  content: "Completed";
+  color: rgb(0, 0, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.task-text-area.task-completed::after {
+  display: block;
+}
+.task-text-display {
+  color: var(--list-text-color);
 }
