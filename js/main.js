@@ -189,8 +189,7 @@ window.addEventListener("DOMContentLoaded", () => {
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete")) {
       const sigleTaskWraper = e.target
-        .closest(".task-display-area")
-        .querySelector(".single-task-wrapper");
+        .closest(".single-task-wrapper")
       sigleTaskWraper.remove();
     }
   });
