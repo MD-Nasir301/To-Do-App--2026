@@ -21,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     {
       date: "02-01-2026",
-      time: "12:30 PM",
+      time: "11:30 PM",
       title: "Task 2",
     },
     {
@@ -29,13 +29,44 @@ window.addEventListener("DOMContentLoaded", () => {
       time: "12:30 PM",
       title: "Task 3",
     },
+  ];
+  let ts = [
     {
-      date: "01-01-2026",
-      time: "12:30 PM",
-      title: "Task 4",
+      "20-03-2026": [
+        {
+          time: "10:5",
+          work: "home",
+        },
+        {
+          time: "12:20",
+          work: "FootBall",
+        },
+        {
+          time: "06:00",
+          work: "Reading",
+        },
+      ],
+    },
+
+    {
+      "02-01-2026": [
+        {
+          time: "12:20",
+          work: "Market",
+        },
+        {
+          time: "21:23",
+          work: "School",
+        },
+        {
+          time: "02:00",
+          work: "Batminton",
+        },
+      ],
     },
   ];
-//====================================================================
+
+  //====================================================================
   // let grouped = [];
 
   // tasksStore.forEach((obj) => {
@@ -47,10 +78,80 @@ window.addEventListener("DOMContentLoaded", () => {
 
   //==============================================================^^^^^^
 
+  let html = ts.map((obj) => {
+    let date = Object.keys(obj)[0];
+    let tasksHtml = obj[date].map((nestedObj) => {
+      return `
+        <li class="single-task-wrapper mb-2">
+          <div class="container">
+            <div class="row">
+              <div class="col-9 col-sm-10 p-0">
+                <div
+                  class="task-text-area d-flex ps-2 justify-content-between"
+                  id="task-text-area"
+                >
+                  <span class="task-item-display">${nestedObj.work}</span>
+                  <span class="task-time">${nestedObj.time}</span>
+                </div>
+              </div>
+              <div
+                class="col-3 col-sm-2 task-btn-area d-flex justify-content-center"
+              >
+                <button title="done" id="done" class="done btn">
+                  ☑️
+                </button>
+                <button title="Delete" class="delete btn">❌</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      `;
+    }).join('');
 
-  tasksStore.map(obj => {
-    
-  })
+    return `
+      <ul id="task-list-group" class="task-display-area mt-3 list-unstyled">
+        <time class="Task-group-date ms-2 tex px-2" datetime="">${date}</time>
+        ${tasksHtml}
+      </ul>
+    `;
+  }).join('');
+
+  taskDisplayArea.innerHTML = html;
+
+  // tasksStore.map((obj) => {
+  //   taskDisplayArea.innerHTML += `
+  //       <ul id="task-list-group"
+  //             class="task-display-area mt-3 list-unstyled"
+  //           >
+  //             <time class="Task-group-date ms-2 tex px-2" datetime=""
+  //               >25-25-2026</time
+  //             >
+  //             <li class="single-task-wrapper mb-2">
+  //               <div class="container">
+  //                 <div class="row">
+  //                   <div class="col-9 col-sm-10 p-0">
+  //                     <div
+  //                       class="task-text-area  d-flex ps-2 justify-content-between"
+  //                       id="task-text-area"
+  //                     >
+  //                       <span class="task-item-display"> ${obj.title} </span>
+  //                       <span class="task-time  ">${obj.time}</span>
+  //                     </div>
+  //                   </div>
+  //                   <div
+  //                     class="col-3 col-sm-2 task-btn-area d-flex justify-content-center"
+  //                   >
+  //                     <button title="done" id="done" class="done btn">
+  //                       ☑️
+  //                     </button>
+  //                     <button title="Delete" class="delete btn">❌</button>
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             </li>
+  //           </ul>
+  //   `;
+  // });
 
   // Handles task creation and updates the primary tasks store
   taskAddBtn.addEventListener("click", () => {
@@ -73,62 +174,26 @@ window.addEventListener("DOMContentLoaded", () => {
       title: taskText,
     };
     tasksStore.push(task);
-
-    taskDisplayArea.innerHTML = `
-        <ul id="task-list-group"
-              class="task-display-area mt-3 list-unstyled"
-            >
-              <time class="Task-group-date ms-2 tex px-2" datetime=""
-                >25-25-2026</time
-              >
-              <li class="single-task-wrapper mb-2">
-                <div class="container">
-                  <div class="row">
-                    <div class="col-9 col-sm-10 p-0">
-                      <div
-                        class="task-text-area  d-flex ps-2 justify-content-between"
-                        id="task-text-area"
-                      >
-                        <span class="task-item-display"> ${task.title} </span>
-                        <span class="task-time  ">${task.time}</span>
-                      </div>
-                    </div>
-                    <div
-                      class="col-3 col-sm-2 task-btn-area d-flex justify-content-center"
-                    >
-                      <button title="done" id="done" class="done btn">
-                        ☑️
-                      </button>
-                      <button title="Delete" class="delete btn">❌</button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-    `;
-
-    taskDone();
-    taskRemove();
   });
-  // Task completed Function
-  function taskDone() {
-    const taskTextArea = document.querySelector(".task-text-area ");
-    taskDisplayArea.addEventListener("click", (e) => {
-      if (e.target.classList.contains("done")) {
-        taskTextArea.classList.toggle("task-completed");
-      }
-    });
-  }
+  // Task completed
+  taskDisplayArea.addEventListener("click", (e) => {
+    if (e.target.classList.contains("done")) {
+      const taskTextArea = e.target
+        .closest(".single-task-wrapper")
+        .querySelector(".task-text-area");
+      taskTextArea.classList.toggle("task-completed");
+    }
+  });
 
-  // Task remove Function
-  function taskRemove() {
-    const singleTaskWrapper = document.querySelector(".single-task-wrapper");
-    taskDisplayArea.addEventListener("click", (e) => {
-      if (e.target.classList.contains("delete")) {
-        singleTaskWrapper.remove();
-      }
-    });
-  }
+  // Task remove
+  taskDisplayArea.addEventListener("click", (e) => {
+    if (e.target.classList.contains("delete")) {
+      const sigleTaskWraper = e.target
+        .closest(".task-display-area")
+        .querySelector(".single-task-wrapper");
+      sigleTaskWraper.remove();
+    }
+  });
 
   // Dark Mode Toggle
   darkBtn.addEventListener("click", () => {
