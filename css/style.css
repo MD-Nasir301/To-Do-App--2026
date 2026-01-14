@@ -10,6 +10,7 @@
   --header-bg: rgb(228, 210, 210);
   --bg-white: #ffffff;
   --input-bg: #fcebeb;
+  --task-done-bg: rgb(195, 153, 15);
   --list-text-color: rgb(111, 63, 63);
   --space-md: 16px;
   /* Spacing & Layout */
@@ -65,6 +66,7 @@ body.dark-mode {
   --header-bg: rgb(87, 78, 78);
   --list-text-color: rgb(34, 83, 22);
   --input-bg: #b0b2b0;
+    --task-done-bg: rgb(136, 106, 7);
 }
 /* App Wrapper Style------------------------------ */
 .app-wraper {
@@ -139,8 +141,8 @@ input.todo-task-input:focus {
 .task-text-area.task-completed::after {
   display: block;
 }
-.bg {
-  background: orange;
+.task-done-bg {
+  background: var(--task-done-bg);
 }
 .task-item-display {
   color: var(--list-text-color);

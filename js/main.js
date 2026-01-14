@@ -1,5 +1,6 @@
 window.addEventListener("DOMContentLoaded", () => {
   //********** */
+  let getDomByID = (id) => document.getElementById(id);
 
   const timeEl = getDomByID("time-value");
   const dateEl = getDomByID("date-value");
@@ -11,77 +12,41 @@ window.addEventListener("DOMContentLoaded", () => {
   const doneBtn = getDomByID("done");
 
   // Primary source of truth for all tasks
-
-  //===================================================
   let tasksStore = [
     {
       date: "01-01-2026",
       time: "10:00 AM",
       title: "Task 1",
     },
-    {
-      date: "02-01-2026",
-      time: "11:30 PM",
-      title: "Task 2",
-    },
-    {
-      date: "03-01-2026",
-      time: "12:30 PM",
-      title: "Task 3",
-    },
-  ];
-  let ts = [
-    {
-      "20-03-2026": [
-        {
-          time: "10:5",
-          work: "home",
-        },
-        {
-          time: "12:20",
-          work: "FootBall",
-        },
-        {
-          time: "06:00",
-          work: "Reading",
-        },
-      ],
-    },
-
-    {
-      "02-01-2026": [
-        {
-          time: "12:20",
-          work: "Market",
-        },
-        {
-          time: "21:23",
-          work: "School",
-        },
-        {
-          time: "02:00",
-          work: "Batminton",
-        },
-      ],
-    },
   ];
 
-  //====================================================================
-  // let grouped = [];
+  function tasksGroup() {
+    // All Tasks Grouped By Date
+    let tasksGroup = tasksStore.reduce((acc, obj) => {
+      let { date, time, title } = obj;
+      let key = date;
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push({ time, title });
+      return acc;
+    }, {});
+    // All Grouped Tasks Convert into Array
+    let tasksByDate = Object.entries(tasksGroup).map(([date, task]) => {
+      return { [date]: task };
+    });
 
-  // tasksStore.forEach((obj) => {
-  //   if ([obj.date]) {
-  //     grouped.push({ [obj.date]: obj.time });
-  //   }
-  // });
-  // console.log(grouped);
+    return tasksByDate;
+  }
 
-  //==============================================================^^^^^^
-
-  let html = ts.map((obj) => {
-    let date = Object.keys(obj)[0];
-    let tasksHtml = obj[date].map((nestedObj) => {
-      return `
+  function renderUI() {
+    let tasksByDate = tasksGroup();
+    let ul = tasksByDate
+      .map((obj) => {
+        let date = Object.keys(obj)[0];
+        let li = obj[date]
+          .map((obj) => {
+            return `
         <li class="single-task-wrapper mb-2">
           <div class="container">
             <div class="row">
@@ -90,14 +55,14 @@ window.addEventListener("DOMContentLoaded", () => {
                   class="task-text-area d-flex ps-2 justify-content-between"
                   id="task-text-area"
                 >
-                  <span class="task-item-display">${nestedObj.work}</span>
-                  <span class="task-time">${nestedObj.time}</span>
+                  <span class="task-item-display">${obj.title}</span>
+                  <span class="task-time">${obj.time}</span>
                 </div>
               </div>
               <div
                 class="col-3 col-sm-2 task-btn-area d-flex justify-content-center"
               >
-                <button title="done" id="done" class="done btn">
+                <button title="Done" id="done" class="done btn">
                   ☑️
                 </button>
                 <button title="Delete" class="delete btn">❌</button>
@@ -106,52 +71,19 @@ window.addEventListener("DOMContentLoaded", () => {
           </div>
         </li>
       `;
-    }).join('');
-
-    return `
+          })
+          .join("");
+        return `
       <ul id="task-list-group" class="task-display-area mt-3 list-unstyled">
-        <time class="Task-group-date ms-2 tex px-2" datetime="">${date}</time>
-        ${tasksHtml}
-      </ul>
-    `;
-  }).join('');
+         <time class="Task-group-date ms-2 tex px-2" datetime="">${date}</time>
+        ${li}
+       </ul>
+     `;
+      })
+      .join("");
 
-  taskDisplayArea.innerHTML = html;
-
-  // tasksStore.map((obj) => {
-  //   taskDisplayArea.innerHTML += `
-  //       <ul id="task-list-group"
-  //             class="task-display-area mt-3 list-unstyled"
-  //           >
-  //             <time class="Task-group-date ms-2 tex px-2" datetime=""
-  //               >25-25-2026</time
-  //             >
-  //             <li class="single-task-wrapper mb-2">
-  //               <div class="container">
-  //                 <div class="row">
-  //                   <div class="col-9 col-sm-10 p-0">
-  //                     <div
-  //                       class="task-text-area  d-flex ps-2 justify-content-between"
-  //                       id="task-text-area"
-  //                     >
-  //                       <span class="task-item-display"> ${obj.title} </span>
-  //                       <span class="task-time  ">${obj.time}</span>
-  //                     </div>
-  //                   </div>
-  //                   <div
-  //                     class="col-3 col-sm-2 task-btn-area d-flex justify-content-center"
-  //                   >
-  //                     <button title="done" id="done" class="done btn">
-  //                       ☑️
-  //                     </button>
-  //                     <button title="Delete" class="delete btn">❌</button>
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //             </li>
-  //           </ul>
-  //   `;
-  // });
+    taskDisplayArea.innerHTML = ul;
+  }
 
   // Handles task creation and updates the primary tasks store
   taskAddBtn.addEventListener("click", () => {
@@ -174,7 +106,15 @@ window.addEventListener("DOMContentLoaded", () => {
       title: taskText,
     };
     tasksStore.push(task);
+    taskInput.value = "";
+    console.log(tasksStore);
+
+    renderUI();
+    console.log(tasksStore);
   });
+  renderUI();
+
+  
   // Task completed
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("done")) {
@@ -182,14 +122,14 @@ window.addEventListener("DOMContentLoaded", () => {
         .closest(".single-task-wrapper")
         .querySelector(".task-text-area");
       taskTextArea.classList.toggle("task-completed");
+      taskTextArea.classList.toggle("task-done-bg");
     }
   });
 
   // Task remove
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete")) {
-      const sigleTaskWraper = e.target
-        .closest(".single-task-wrapper")
+      const sigleTaskWraper = e.target.closest(".single-task-wrapper");
       sigleTaskWraper.remove();
     }
   });
@@ -216,9 +156,6 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 1000);
 
   // All Functions
-  function getDomByID(id) {
-    return document.getElementById(id);
-  }
 
   //********* */
 });
