@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // Primary source of truth for all tasks
   let tasksStore = [
     {
+      id: 1,
       date: "01-01-2026",
       time: "10:00 AM",
       title: "Task 1",
@@ -21,7 +22,7 @@ window.addEventListener("DOMContentLoaded", () => {
   ];
 
   function tasksGroup() {
-    // All Tasks Grouped By Date
+    // All Tasks Grouping  By Date
     let tasksGroup = tasksStore.reduce((acc, obj) => {
       let { date, time, title } = obj;
       let key = date;
@@ -31,7 +32,7 @@ window.addEventListener("DOMContentLoaded", () => {
       acc[key].push({ time, title });
       return acc;
     }, {});
-    // All Grouped Tasks Convert into Array
+    // Grouped Tasks Convert into Array
     let tasksByDate = Object.entries(tasksGroup).map(([date, task]) => {
       return { [date]: task };
     });
@@ -114,7 +115,6 @@ window.addEventListener("DOMContentLoaded", () => {
   });
   renderUI();
 
-  
   // Task completed
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("done")) {
@@ -129,8 +129,17 @@ window.addEventListener("DOMContentLoaded", () => {
   // Task remove
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete")) {
-      const sigleTaskWraper = e.target.closest(".single-task-wrapper");
-      sigleTaskWraper.remove();
+      const singleTaskWraper = e.target.closest(".single-task-wrapper");
+
+      let liText =
+        singleTaskWraper.querySelector(".task-item-display").textContent;
+      let findLi = tasksStore.find((obj) => {
+        return obj.title === liText;
+      });
+      let index = tasksStore.indexOf(liText);
+      tasksStore.splice(index, 1);
+
+      singleTaskWraper.remove();
     }
   });
 
