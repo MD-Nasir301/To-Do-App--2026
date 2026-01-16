@@ -183,5 +183,81 @@ window.addEventListener("DOMContentLoaded", () => {
     renderUI();
   }
 
+  let tl = gsap.timeline({});
+
+  tl.from(".to", {
+    duration: 1,
+    opacity: 0,
+    y: -150,
+    rotate: 100,
+    ease: "bounce",
+    delay: 0.5,
+  });
+  tl.to(".to", {
+    rotate: 20,
+  });
+  tl.fromTo(
+    ".do",
+    {
+      duration: 1,
+      opacity: 0,
+      x: 350,
+      ease: "bounce",
+      delay: 0.5,
+    },
+    {
+      duration: 0.5,
+      opacity: 1,
+      x: -10,
+      ease: "none",
+    }
+  );
+  tl.to(".do", {
+    x: 0,
+  });
+  tl.to(
+    ".to",
+    {
+      rotate: -10,
+    },
+    "-=0.5"
+  );
+  tl.from(
+    ".logo",
+    {
+      scale: 0,
+      duration: 1,
+      opacity: 0,
+      ease: "power2.in",
+    },
+    "-=1"
+  );
+
+  tl.from(".dark-mode", {
+    scale: 0,
+    duration: 1,
+    opacity: 0,
+    ease: "power2.in",
+  });
+  tl.from(".theme", {
+    scale: 0,
+    duration: 0.3,
+    opacity: 0,
+    ease: "power2.in",
+  });
+
+  gsap.from(".todo-task-input", {
+    duration: 0.5,
+    opacity: 0,
+    scaleX: 0,
+    delay: 0.3,
+  });
+  gsap.from(".single-task-wrapper", {
+    duration: 0.4,
+    opacity: 0,
+    x: -80,
+    delay: 0.6,
+    stagger: 0.2,
+  });
   //********* */
 });
