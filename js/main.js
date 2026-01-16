@@ -12,24 +12,26 @@ window.addEventListener("DOMContentLoaded", () => {
   const doneBtn = getDomByID("done");
 
   // Primary source of truth for all tasks
-  let tasksStore = [
-    {
-      id: 1,
-      date: "01-01-2026",
-      time: "10:00 AM",
-      title: "Task 1",
-    },
-  ];
+  let tasksStore = JSON.parse(localStorage.getItem("tasksStore")) || [];
+  //  [
+  //   {
+  //     id: Date.now(),
+  //     date: "01-01-2026",
+  //     time: "10:00 AM",
+  //     title: "Task 1",
+  //     done: true,
+  //   },
+  // ];
 
   function tasksGroup() {
     // All Tasks Grouping  By Date
     let tasksGroup = tasksStore.reduce((acc, obj) => {
-      let { date, time, title } = obj;
+      let { id, date, time, title, done } = obj;
       let key = date;
       if (!acc[key]) {
         acc[key] = [];
       }
-      acc[key].push({ time, title });
+      acc[key].push({ id, time, title, done });
       return acc;
     }, {});
     // Grouped Tasks Convert into Array
@@ -53,20 +55,26 @@ window.addEventListener("DOMContentLoaded", () => {
             <div class="row">
               <div class="col-9 col-sm-10 p-0">
                 <div
-                  class="task-text-area d-flex ps-2 justify-content-between"
+                  class="task-text-area ${
+                    obj.done ? "task-completed task-done-bg" : ""
+                  }  d-flex ps-2 justify-content-between"
                   id="task-text-area"
                 >
-                  <span class="task-item-display">${obj.title}</span>
+                  <span class="task-item-display"> ${obj.title}</span>
                   <span class="task-time">${obj.time}</span>
                 </div>
               </div>
               <div
-                class="col-3 col-sm-2 task-btn-area d-flex justify-content-center"
+                class="col-3 col-sm-2 task-btn-area d-flex justify-content-between"
               >
-                <button title="Done" id="done" class="done btn">
+                <button title="Done" data-id="${
+                  obj.id
+                }"  id="done" class="done btn">
                   ☑️
                 </button>
-                <button title="Delete" class="delete btn">❌</button>
+                <button title="Delete" data-id="${
+                  obj.id
+                }" class="delete btn">❌</button>
               </div>
             </div>
           </div>
@@ -102,13 +110,15 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 
     let task = {
+      id: Date.now(),
       date: taskDate,
       time: taskTime,
       title: taskText,
+      done: false,
     };
     tasksStore.push(task);
+    localStorage.setItem("tasksStore", JSON.stringify(tasksStore));
     taskInput.value = "";
-    console.log(tasksStore);
 
     renderUI();
     console.log(tasksStore);
@@ -118,28 +128,19 @@ window.addEventListener("DOMContentLoaded", () => {
   // Task completed
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("done")) {
-      const taskTextArea = e.target
+      const doneBtn = e.target
         .closest(".single-task-wrapper")
-        .querySelector(".task-text-area");
-      taskTextArea.classList.toggle("task-completed");
-      taskTextArea.classList.toggle("task-done-bg");
+        .querySelector(".done");
+      toggleDone(doneBtn.dataset.id);
     }
   });
 
   // Task remove
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete")) {
-      const singleTaskWraper = e.target.closest(".single-task-wrapper");
-
-      let liText =
-        singleTaskWraper.querySelector(".task-item-display").textContent;
-      let findLi = tasksStore.find((obj) => {
-        return obj.title === liText;
-      });
-      let index = tasksStore.indexOf(liText);
-      tasksStore.splice(index, 1);
-
-      singleTaskWraper.remove();
+      let liId = e.target.dataset.id;
+      console.log("Dichi" + liId);
+      remove(liId);
     }
   });
 
@@ -165,6 +166,22 @@ window.addEventListener("DOMContentLoaded", () => {
   }, 1000);
 
   // All Functions
+
+  function toggleDone(id) {
+    let findLi = tasksStore.find((obj) => {
+      return obj.id == id;
+    });
+    findLi.done = !findLi.done;
+    localStorage.setItem("tasksStore", JSON.stringify(tasksStore));
+    renderUI();
+  }
+
+  function remove(id) {
+    let findIndex = tasksStore.findIndex((obj) => obj.id == id);
+    tasksStore.splice(findIndex, 1);
+    localStorage.setItem("tasksStore", JSON.stringify(tasksStore));
+    renderUI();
+  }
 
   //********* */
 });

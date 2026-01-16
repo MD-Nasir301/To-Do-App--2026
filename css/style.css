@@ -66,7 +66,7 @@ body.dark-mode {
   --header-bg: rgb(87, 78, 78);
   --list-text-color: rgb(34, 83, 22);
   --input-bg: #b0b2b0;
-    --task-done-bg: rgb(136, 106, 7);
+  --task-done-bg: rgb(136, 106, 7);
 }
 /* App Wrapper Style------------------------------ */
 .app-wraper {
@@ -148,7 +148,7 @@ input.todo-task-input:focus {
   color: var(--list-text-color);
 }
 .task-item-display {
-  font-size: 13px;
+  font-size: 15px;
 }
 .task-time {
   font-size: 10px;
