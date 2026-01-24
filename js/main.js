@@ -11,17 +11,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const taskDisplayArea = getDomByID("task-display-area");
   const doneBtn = getDomByID("done");
 
+  let isDarkMode = true;
   // Primary source of truth for all tasks
   let tasksStore = JSON.parse(localStorage.getItem("tasksStore")) || [];
-  //  [
-  //   {
-  //     id: Date.now(),
-  //     date: "01-01-2026",
-  //     time: "10:00 AM",
-  //     title: "Task 1",
-  //     done: true,
-  //   },
-  // ];
+
 
   function tasksGroup() {
     // All Tasks Grouping  By Date
@@ -35,6 +28,7 @@ window.addEventListener("DOMContentLoaded", () => {
       return acc;
     }, {});
     // Grouped Tasks Convert into Array
+    console.log(Object.entries(tasksGroup));
     let tasksByDate = Object.entries(tasksGroup).map(([date, task]) => {
       return { [date]: task };
     });
@@ -97,6 +91,10 @@ window.addEventListener("DOMContentLoaded", () => {
   // Handles task creation and updates the primary tasks store
   taskAddBtn.addEventListener("click", () => {
     let taskText = taskInput.value;
+    if (taskText === "") {
+      alert("Please enter a task");
+      return;
+    }
     let taskTime = new Date().toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -139,7 +137,6 @@ window.addEventListener("DOMContentLoaded", () => {
   taskDisplayArea.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete")) {
       let liId = e.target.dataset.id;
-      console.log("Dichi" + liId);
       remove(liId);
     }
   });
@@ -210,7 +207,7 @@ window.addEventListener("DOMContentLoaded", () => {
       opacity: 1,
       x: -10,
       ease: "none",
-    }
+    },
   );
   tl.to(".do", {
     x: 0,
@@ -220,7 +217,7 @@ window.addEventListener("DOMContentLoaded", () => {
     {
       rotate: -10,
     },
-    "-=0.5"
+    "-=0.5",
   );
   tl.from(
     ".logo",
@@ -230,9 +227,8 @@ window.addEventListener("DOMContentLoaded", () => {
       opacity: 0,
       ease: "power2.in",
     },
-    "-=1"
+    "-=1",
   );
-
   tl.from(".dark-mode", {
     scale: 0,
     duration: 1,
@@ -245,6 +241,29 @@ window.addEventListener("DOMContentLoaded", () => {
     opacity: 0,
     ease: "power2.in",
   });
+
+  const toDoTL = gsap.timeline({ repeat: -1, delay: 5, repeatDelay: 3 });
+  toDoTL.to(".to", {
+    rotate: 0,
+    duration: 0.3,
+  });
+  toDoTL.to(".do", {
+    delay: 0.2,
+    x: -7,
+    duration: 0.1,
+  });
+  toDoTL.to(".do", {
+    x: 0,
+    duration: 0.3,
+  });
+  toDoTL.to(
+    ".to",
+    {
+      rotate: -10,
+      duration: 0.3,
+    },
+    "-=0.3",
+  );
 
   gsap.from(".todo-task-input", {
     duration: 0.5,

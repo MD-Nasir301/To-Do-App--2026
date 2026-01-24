@@ -87,13 +87,13 @@ header {
   transform-origin: center center;
 }
 .to {
-  font-size: 25px;
+  font-size: 28px;
   display: inline-block;
   transform: rotate(-10deg);
-  color: orange;
+  color: rgb(119, 111, 231);
 }
 .do {
-  font-size: 25px;
+  font-size: 28px;
   display: inline-block;
 }
 /* Date & Time Area Style ------------------------------*/
